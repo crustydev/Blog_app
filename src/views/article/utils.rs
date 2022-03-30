@@ -1,3 +1,9 @@
+/// helper function to pass along with requests a serialized struct
+/// containing a vector of Articles. It returns in json format a container 
+/// of all the articles belonging to a particular blogger.
+
+
+
 use std::vec::Vec;
 
 use crate::diesel;
@@ -10,7 +16,7 @@ use crate::models::article::article::Article;
 use crate::schema::article;
 
 
-pub return_article(user_id: &i32) -> Vec<Article> {
+pub fn return_articles(user_id: &i32) -> Articles {
     let connection = establish_connection();
 
     let articles = article::table
@@ -22,17 +28,9 @@ pub return_article(user_id: &i32) -> Vec<Article> {
     let mut article_buffer = Vec::new();
 
     for article in articles {
-        let result = Article {
-            pub id: article.id,
-            pub title: article.title,
-            pub description: article.description,
-            pub content: article.content,
-            pub created_at: article.created_at,
-            pub updated_at: article.updated_at,
-            pub blogger_id: article.blogger_id
-        }
-        article_buffer.push(result);
+        article_buffer.push(article);
     }
 
-    return Articles::new(article_buffer);
+    let result: Articles = Articles { articles: article_buffer };
+    return result
 }

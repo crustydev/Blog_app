@@ -61,7 +61,7 @@ impl JwtToken {
 
 
 #[cfg(test)]
-mod jwt_tests {
+mod jwt_test {
     use super::JwtToken;
     use actix_web::test;
 
@@ -71,7 +71,7 @@ mod jwt_tests {
         let encoded_token: String = JwtToken::encode(32);
         let decoded_token: JwtToken = JwtToken::decode(
             encoded_token).unwrap();
-        assert_eq!(32, decoded_token.user_id);
+        assert_eq!(32, decoded_token.blogger_id);
     }
 
     #[test]

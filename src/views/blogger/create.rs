@@ -1,15 +1,22 @@
+/// path:-> /blogger/sign_up
+/// Retrieves new blogger details from the serialized Json struct passed
+/// alongside the request and creates a new blogger.
+///
+   
+
+
 use crate::diesel;
 use diesel::prelude::*;
 
 use actix_web::{web, HttpResponse};
 
 use crate::database::establish_connection;
-use crate::json_serialization::new_blogger::NewBloggerJson;
+use crate::json_serialization::blogger::NewBloggerJson;
 use crate::models::blogger::new_blogger::NewBlogger;
 use crate::schema::blogger;
 
 
-pub async fn create(new_blogger: web::Json<NewBloggerJson>) 
+pub async fn create (new_blogger: web::Json<NewBloggerJson>) 
         -> HttpResponse {
     let connection = establish_connection();
     

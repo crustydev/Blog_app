@@ -4,8 +4,9 @@ table! {
         title -> Varchar,
         description -> Varchar,
         content -> Varchar,
-        created_at -> Timestamptz,
-        updated_at -> Timestamptz,
+        created_at -> Varchar,
+        updated_at -> Varchar,
+        unique_id -> Varchar,
         blogger_id -> Int4,
     }
 }
@@ -23,8 +24,9 @@ table! {
     comment (id) {
         id -> Int4,
         content -> Varchar,
-        created_at -> Timestamptz,
-        updated_at -> Timestamptz,
+        created_at -> Varchar,
+        updated_at -> Varchar,
+        unique_id -> Varchar,
         blogger_id -> Int4,
         article_id -> Int4,
     }
@@ -34,8 +36,8 @@ table! {
     reply (id) {
         id -> Int4,
         content -> Varchar,
-        created_at -> Timestamptz,
-        updated_at -> Timestamptz,
+        created_at -> Varchar,
+        updated_at -> Varchar,
         blogger_id -> Int4,
         comment_id -> Int4,
     }

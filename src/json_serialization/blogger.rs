@@ -1,9 +1,19 @@
-use serde::Serialize;
+
 use crate::models::blogger::blogger::Blogger;
 
-use actix_web::{Responder, HttpResponse, HttpRequest, Error};
+use actix_web::{Responder, Error, HttpRequest, HttpResponse};
+use serde::{Serialize, Deserialize};
 
-use futures::future::{ready, Ready};
+use futures::future::ready;
+use futures::future::Ready;
+
+
+#[derive(Deserialize)]
+pub struct NewBloggerJson {
+    pub username: String,
+    pub email: String,
+    pub password: String
+}
 
 #[derive(Serialize)]
 pub struct BloggerDetails {
@@ -22,13 +32,11 @@ impl BloggerDetails {
 }
 
 
-
 impl Responder for BloggerDetails {
     type Error = Error;
-
     type Future = Ready<Result<HttpResponse, Error>>;
 
-    fn respond_to(self, req: &HttpRequest) -> Self::Future {
+    fn respond_to(self, _req: &HttpRequest) -> Self::Future {
         let body = serde_json::to_string(&self).unwrap();
         ready(Ok(HttpResponse::Ok()
                 .content_type("application/json")

@@ -1,28 +1,17 @@
-use crate::models::article::article::Article;
-use crate::models::comment::comment::Comment;
-
-use actix_web::{Responder, Error, HttpRequest, HttpResponse};
 use serde::Serialize;
+use crate::models::article::article::Article;
 
+use actix_web::{Error, HttpRequest, HttpResponse, Responder};
 use futures::future::{ready, Ready};
 
 
 #[derive(Serialize)]
-pub struct ArticleView {
-    pub article: Article,
-    pub comments: Vec<Comment>
+pub struct Articles {
+    pub articles: Vec<Article>
 }
 
 
-impl ArticleView {
-    pub fn new(article: Article, comments:
-                        Vec<Comment>) -> ArticleView {
-        return ArticleView{ article, comments }
-    }
-}
-
-
-impl Responder for ArticleView {
+impl Responder for Articles {
     type Error = Error;
 
     type Future = Ready<Result<HttpResponse, Error>>;

@@ -1,17 +1,22 @@
 use crate::schema::comment;
+use uuid::Uuid;
+
 
 #[derive(Insertable, Clone, Debug)]
 #[table_name="comment"]
 pub struct NewComment {
     pub content: String,
+    pub unique_id: String,
     pub blogger_id: i32,
     pub article_id: i32
 }
 
 
 impl NewComment {
-    pub fn new(content: String, blogger_id: i32, article_id: i32) -> NewComment {
-        return NewComment { content, blogger_id, article_id }
+    pub fn new(content: String, blogger_id: i32, article_id: i32)
+                         -> NewComment {
+        let unique_id: String = Uuid::new_v4().to_string();
+        return NewComment { content, unique_id, blogger_id, article_id }
     }
 }
 

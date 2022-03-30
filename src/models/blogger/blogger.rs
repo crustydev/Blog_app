@@ -1,5 +1,3 @@
-use chrono::NaiveDateTime;
-
 use bcrypt::verify;
 
 use crate::schema::blogger;
@@ -11,9 +9,7 @@ pub struct Blogger {
     pub id: i32,
     pub username: String,
     pub email: String,
-    pub password: String,
-    pub created_at: NaiveDateTime,
-    pub updated_at: NaiveDateTime
+    pub password: String
 }
 
 impl Blogger {

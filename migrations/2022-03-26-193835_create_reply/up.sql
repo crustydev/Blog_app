@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()
 RETURNS TRIGGER AS $$
 BEGIN
-    NEW.updated_at = NOW();
+    NEW.updated_at = TO_CHAR(NOW(), 'HH24:MI:SS');
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -10,8 +10,8 @@ $$ LANGUAGE plpgsql;
 CREATE TABLE reply (
     id SERIAL PRIMARY KEY,
     content VARCHAR NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    created_at VARCHAR NOT NULL DEFAULT TO_CHAR(NOW(), 'HH24:MI:SS'),
+    updated_at VARCHAR NOT NULL DEFAULT TO_CHAR(NOW(), 'HH24:MI:SS')
 );
 
 

@@ -1,5 +1,5 @@
 use crate::schema::article;
-
+use uuid::Uuid;
 
 #[derive(Insertable, Clone, Debug)]
 #[table_name="article"]
@@ -7,14 +7,17 @@ pub struct NewArticle {
     pub title: String,
     pub description: String,
     pub content: String,
+    pub unique_id: String,
     pub blogger_id: i32
 }
 
 
 impl NewArticle {
-    pub fn new(title: String, description: String, content: String, blogger_id: i32) -> NewArticle {
-
-        return NewArticle { title, description, content, blogger_id }
+    pub fn new(title: String, description: String, content: String,
+                     blogger_id: i32) -> NewArticle {
+        let unique_id: String = Uuid::new_v4().to_string();
+        return NewArticle { title, description, content,
+                             unique_id, blogger_id }
     }
 }
 

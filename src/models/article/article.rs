@@ -1,5 +1,3 @@
-use chrono::NaiveDateTime;
-
 use actix_web::{Responder, HttpRequest, HttpResponse, Error};
 use serde::Serialize;
 
@@ -17,14 +15,13 @@ pub struct Article {
     pub title: String,
     pub description: String,
     pub content: String,
-    pub created_at: NaiveDateTime,
-    pub updated_at: NaiveDateTime,
+    pub created_at: String,
+    pub updated_at: String,
+    pub unique_id: String,
     pub blogger_id: i32
 }
 
-impl Article {
-
-}
+impl Article {}
 
 impl Responder for Article {
     type Error = Error;

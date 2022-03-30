@@ -1,0 +1,1 @@
+ALTER TABLE article ADD CONSTRAINT unique_article UNIQUE (title, blogger_id);
