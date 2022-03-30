@@ -8,5 +8,5 @@ CREATE TABLE blogger (
 );
 
 INSERT INTO blogger (username, email, password)
-VALUES ('ademola', 'ademole email', 'ademola password');
+VALUES ('placeholder', 'placeholder@gmail.com', 'placeholderpass');
  
