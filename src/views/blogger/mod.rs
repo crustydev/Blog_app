@@ -14,9 +14,6 @@ pub fn blogger_factory(app:&mut web::ServiceConfig) {
                  web::post().to(create::create))
         .route(&base_path.define(String::from("/delete")),
                  web::post().to(delete::delete))
-        .route(&base_path.define(String::from("/article/{article_id}")),
-                web::post().to(get::return_details));
-        
+        .route(&base_path.define(String::from("/profile/{username}}")),
+                web::get().to(get::return_details));
 }
-
-

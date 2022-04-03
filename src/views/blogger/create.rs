@@ -1,9 +1,8 @@
-/// path:-> /blogger/sign_up
+/// path:-> /blogger/create
 /// Retrieves new blogger details from the serialized Json struct passed
 /// alongside the request and creates a new blogger.
 ///
    
-
 
 use crate::diesel;
 use diesel::prelude::*;

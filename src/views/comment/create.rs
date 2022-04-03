@@ -23,11 +23,9 @@ pub async fn create(req: HttpRequest, comment:
 
     let token: JwtToken = JwtToken::decode_from_request(req.clone()).unwrap();
     let content: String = comment.content.clone();
+    let article_unique_id: String = comment.article_unique_id.clone();
 
-    let connection = establish_connection(); 
-
-    let article_unique_id: String = req.match_info().get
-    ("article_unique_id").unwrap().to_string();
+    let connection = establish_connection();
 
     let article = article::table
         .filter(article::columns::unique_id.eq(&article_unique_id))
