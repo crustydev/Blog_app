@@ -20,6 +20,8 @@ use crate::schema::comment;
 
 use crate::auth::jwt::JwtToken;
 
+
+
 pub async fn writer_article_view(req: HttpRequest) -> HttpResponse {
 
     let article_id: String = req.match_info()
@@ -79,3 +81,4 @@ pub async fn reader_article_view(req: HttpRequest) -> HttpResponse {
 
     return HttpResponse::Ok().json(result);
 }
+

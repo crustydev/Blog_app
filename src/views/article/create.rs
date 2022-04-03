@@ -18,7 +18,7 @@ use diesel::prelude::*;
 use actix_web::{web, HttpRequest, Responder};
 
 use crate::json_serialization::article::ArticleJson;
-use super::utils::return_articles;
+use super::utils::return_user_articles;
 
 use crate::database::establish_connection;
 use crate::models::article::article::Article;
@@ -42,7 +42,6 @@ pub async fn create(req: HttpRequest, article:
     let articles = article::table
         .filter(article::columns::blogger_id.eq(&token.blogger_id))
         .filter(article::columns::title.eq(&title))
-        .filter(article::columns::description.eq(&description))
         .order(article::columns::id.asc())
         .load::<Article>(&connection)
         .unwrap();
@@ -54,5 +53,5 @@ pub async fn create(req: HttpRequest, article:
             .execute(&connection);
     }
 
-    return return_articles(&token.blogger_id);
+    return return_user_articles(&token.blogger_id);
 }

@@ -9,18 +9,23 @@ use super::path::Path;
 
 
 pub fn article_factory(app: &mut web::ServiceConfig) {
-    let base_path: Path = Path{prefix: String::from("/my_articles"), backend: true};
+    let user_articles_path: Path = Path{prefix: String::from("/myarticles"), backend: true};
+    let general_articles_path: Path = Path{prefix: String::from("/articles"), backend: true};
 
-    app.route(&base_path.define(String::from("/")),
-                web::get().to(list::list_articles))
-        .route(&base_path.define(String::from("/{unique_id}")),
-                web::get().to(view::writer_article_view))
-        .route(&base_path.define(String::from("/create")),
+    app.route(&user_articles_path.define(String::from("")),
+                web::get().to(list::get_user_articles))
+        .route(&user_articles_path.define(String::from("/create")),
                 web::put().to(create::create))
-        .route(&base_path.define(String::from("/{unique_id}/delete")),
+        .route(&user_articles_path.define(String::from("/{unique_id}")),
+                web::get().to(view::writer_article_view))
+        .route(&user_articles_path.define(String::from("/{unique_id}/delete")),
                 web::post().to(delete::delete))
-        .route(&base_path.define(String::from("/unique_id/edit")),
+        .route(&user_articles_path.define(String::from("/{unique_id}/edit")),
                 web::put().to(edit::edit))
-        .route("/articles/{unique_id}", web::get().to
-                (view::reader_article_view));
+
+                
+        .route(&general_articles_path.define(String::from("{unique_id}")), web::get().to
+                (view::reader_article_view))
+        .route(&general_articles_path.define(String::from("")),
+                 web::get().to(list::get_all_articles));
 }

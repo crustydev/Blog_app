@@ -4,13 +4,18 @@
   
 
 use actix_web::{Responder, HttpRequest};
-use super::utils::return_articles;
+use super::utils::return_user_articles;
+use super::utils::return_all_articles;
 
 use crate::auth::jwt::JwtToken;
 
 
-pub async fn list_articles(req: HttpRequest) -> impl Responder {
+pub async fn get_user_articles(req: HttpRequest) -> impl Responder {
     let token: JwtToken = 
         JwtToken::decode_from_request(req).unwrap();
-    return return_articles(&token.blogger_id);
+    return return_user_articles(&token.blogger_id);
+}
+
+pub async fn get_all_articles() -> impl Responder {
+    return_all_articles()
 }

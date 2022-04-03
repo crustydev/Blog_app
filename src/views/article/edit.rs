@@ -1,4 +1,4 @@
-/// path: -> /my_articles/{id}/delete
+/// path: -> /myarticles/{unique_id}/edit
 /// it receives a serialized json struct containing the new article's details
 /// and retrieves the unique id of the article to be edited from the request url.
 
@@ -9,7 +9,7 @@ use diesel::prelude::*;
 
 use actix_web::{web, HttpResponse, HttpRequest};
 
-use super::utils::return_articles;
+use super::utils::return_user_articles;
 
 use crate::database::establish_connection;
 use crate::json_serialization::article::ArticleJson;
@@ -42,6 +42,6 @@ pub async fn edit(new_article: web::Json<ArticleJson>, req: HttpRequest) -> Http
         .execute(&connection);
     
 
-    return HttpResponse::Ok().json(return_articles(&token.blogger_id))
+    return HttpResponse::Ok().json(return_user_articles(&token.blogger_id))
     
 }

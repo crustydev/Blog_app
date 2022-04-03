@@ -12,7 +12,7 @@ use crate::schema::article;
 
 use crate::auth::jwt::JwtToken;
 
-use super::utils::return_articles;
+use super::utils::return_user_articles;
 
 
 pub async fn delete(req: HttpRequest) -> HttpResponse {
@@ -32,8 +32,12 @@ pub async fn delete(req: HttpRequest) -> HttpResponse {
         .order(article::columns::id.asc())
         .load::<Article>(&connection)
         .unwrap();
+    
+    if articles.len() == 0 {
+        return HttpResponse::NotFound().json(return_user_articles(&token.blogger_id))
+    }
 
-        let _ = diesel::delete(&articles[0]).execute(&connection);
+    let _ = diesel::delete(&articles[0]).execute(&connection);
 
-        return HttpResponse::Ok().json(return_articles(&token.blogger_id))
+    return HttpResponse::Ok().json(return_user_articles(&token.blogger_id))
 }

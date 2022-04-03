@@ -3,9 +3,6 @@
 /// of all the articles belonging to a particular blogger.
 
 
-
-use std::vec::Vec;
-
 use crate::diesel;
 use diesel::prelude::*;
 
@@ -16,7 +13,8 @@ use crate::models::article::article::Article;
 use crate::schema::article;
 
 
-pub fn return_articles(user_id: &i32) -> Articles {
+
+pub fn return_user_articles(user_id: &i32) -> Articles {
     let connection = establish_connection();
 
     let articles = article::table
@@ -25,12 +23,17 @@ pub fn return_articles(user_id: &i32) -> Articles {
         .load::<Article>(&connection)
         .unwrap();
 
-    let mut article_buffer = Vec::new();
+    return Articles { articles }
+}
 
-    for article in articles {
-        article_buffer.push(article);
-    }
 
-    let result: Articles = Articles { articles: article_buffer };
-    return result
+pub fn return_all_articles() -> Articles {
+    let connection = establish_connection();
+
+    let articles = article::table
+        .order(article::columns::id.asc())
+        .load::<Article>(&connection)
+        .unwrap();
+    
+    return Articles { articles }
 }
