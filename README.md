@@ -1,5 +1,5 @@
 # About
-simple blog application using the actix web framework in rust.
+Simple blog application built with Rust's Actix web framework.
 
 # Dependencies
 - rustc 1.59.0
