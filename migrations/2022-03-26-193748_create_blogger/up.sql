@@ -7,6 +7,6 @@ CREATE TABLE blogger (
     UNIQUE (email)
 );
 
+
 INSERT INTO blogger (username, email, password)
 VALUES ('placeholder', 'placeholder@gmail.com', 'placeholderpass');
- 
